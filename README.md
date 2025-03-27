@@ -54,13 +54,17 @@ To expose your local server to the internet, you can use ngrok.
 ### Configuration
 
 1. Create the .config file in this path: Yr4-Restaurant-App-Frontend\config.js
-2. Add this code:  
+2. Add this code:
 
 const config = {
 ngrokUrl: "https://<your-ngrok>.ngrok-free.app",
 };
 
 export default config;
+
+### Push Notifications
+
+https://expo.dev/
 
 ## Dependencies
 

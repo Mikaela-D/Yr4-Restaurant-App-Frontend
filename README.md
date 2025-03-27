@@ -60,9 +60,9 @@ const config = {
 ngrokUrl: "https://<your-ngrok>.ngrok-free.app",
 };
 
-export const expoPushToken = "ExponentPushToken[yourToken]";
-
 export default config;
+
+export const expoPushToken = "ExponentPushToken[yourToken]";
 
 ### Push Notifications
 

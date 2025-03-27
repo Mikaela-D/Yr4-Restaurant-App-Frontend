@@ -51,6 +51,17 @@ To expose your local server to the internet, you can use ngrok.
    ```
 3. Replace the API endpoint in your React Native app with the ngrok URL provided.
 
+### Configuration
+
+1. Create the .config file in this path: Yr4-Restaurant-App-Frontend\config.js
+2. Add this code:  
+
+const config = {
+ngrokUrl: "https://<your-ngrok>.ngrok-free.app",
+};
+
+export default config;
+
 ## Dependencies
 
 - React Native

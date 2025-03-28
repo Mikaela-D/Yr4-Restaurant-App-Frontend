@@ -8,8 +8,8 @@ const HomeScreen = ({ navigation }) => {
     <View>
       <Text>Welcome,</Text>
       <Text>
-        This is a Product Management App where you can create, read, update and
-        delete your products.
+        This is a Restaurant App where you can create, read, update and delete
+        your dishes.
       </Text>
       <Button
         title="Manage Products"

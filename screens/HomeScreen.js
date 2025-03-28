@@ -6,8 +6,8 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome,</Text>
       <Text style={styles.descriptionText}>
-        This is a Product Management App where you can create, read, update and
-        delete your products.
+        This is a Restaurant App where you can create, read, update and delete
+        your dishes.
       </Text>
       <TouchableOpacity
         style={styles.button}

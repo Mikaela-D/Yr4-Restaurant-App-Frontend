@@ -78,7 +78,7 @@ export default App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Product Management App" }}
+          options={{ title: "Restaurant App" }}
         />
         <Stack.Screen name="Fetch" component={FetchScreen} />
         <Stack.Screen name="ViewProduct" component={ViewProductScreen} />

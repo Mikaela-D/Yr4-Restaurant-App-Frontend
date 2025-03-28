@@ -1,6 +1,7 @@
 # FetchLocalhostWeek7
 
 This is a simple mobile application developed using React Native. The app demonstrates navigation between screens and fetching data from an API.
+It has local and push notifications. The push notifications are for when a dish is added or deleted.
 
 ![App Screenshot](assets/Product%20Management%20App%20Diagram.png)
 

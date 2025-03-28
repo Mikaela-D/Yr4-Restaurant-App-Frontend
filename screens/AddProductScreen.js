@@ -59,6 +59,17 @@ const AddProductScreen = ({ navigation }) => {
     setProduct({ ...product, [name]: value });
   };
 
+  const sendPushNotification = async (title, body) => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title,
+        body,
+        data: { userName: "Mikaela" }, // Hardcoded userName
+      },
+      trigger: null, // Immediate notification
+    });
+  };
+
   const handleSubmit = async () => {
     const {
       name,
@@ -96,22 +107,25 @@ const AddProductScreen = ({ navigation }) => {
       });
       const data = await res.json();
       if (data.success) {
-        console.log("Product added successfully, scheduling notification...");
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Product Added",
-            body: `Product ${newProduct.name} has been added successfully.`,
-            data: { userName: "Max" },
-          },
-          trigger: { seconds: 1 },
-        });
-        console.log("Notification scheduled for product addition");
+        console.log("Product added successfully.");
+        await sendPushNotification(
+          "Product Added",
+          `Product "${newProduct.name}" has been added successfully.`
+        );
         navigation.navigate("ManageProducts", { refresh: true });
       } else {
         console.log("Failed to add product:", data.theError);
+        await sendPushNotification(
+          "Error",
+          `Failed to add product "${newProduct.name}".`
+        );
       }
     } catch (err) {
       console.log(err);
+      await sendPushNotification(
+        "Error",
+        "An error occurred while adding the product."
+      );
     }
   };
 

@@ -58,7 +58,7 @@ To expose your local server to the internet, you can use ngrok.
 2. Add this code:
 
 const config = {
-ngrokUrl: "https://<your-ngrok>.ngrok-free.app",
+ngrokUrl: "https://your-ngrok-token.ngrok-free.app",
 };
 
 export default config;

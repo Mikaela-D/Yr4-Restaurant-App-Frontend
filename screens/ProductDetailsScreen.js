@@ -11,6 +11,17 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     navigation.setOptions({ title: "Product Details" });
   }, []);
 
+  const sendPushNotification = async (title, body) => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title,
+        body,
+        data: { userName: "Mikaela" }, // Hardcoded userName
+      },
+      trigger: null, // Immediate notification
+    });
+  };
+
   const handleDelete = async () => {
     try {
       const res = await fetch(`${config.ngrokUrl}/deleteSpecificProduct`, {
@@ -23,22 +34,25 @@ const ProductDetailsScreen = ({ route, navigation }) => {
       });
       const data = await res.json();
       if (data.success) {
-        console.log("Product deleted successfully, scheduling notification...");
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Product Deleted",
-            body: `Product ${product.name} has been deleted successfully.`,
-            data: { userName: "Max" },
-          },
-          trigger: { seconds: 1 },
-        });
-        console.log("Notification scheduled for product deletion");
+        console.log("Product deleted successfully.");
+        await sendPushNotification(
+          "Product Deleted",
+          `Product "${product.name}" has been deleted successfully.`
+        );
         navigation.navigate("ManageProducts");
       } else {
         console.log("Failed to delete product:", data.theError);
+        await sendPushNotification(
+          "Error",
+          `Failed to delete product "${product.name}".`
+        );
       }
     } catch (err) {
       console.log(err);
+      await sendPushNotification(
+        "Error",
+        "An error occurred while deleting the product."
+      );
     }
   };
 

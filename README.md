@@ -1,6 +1,7 @@
 # FetchLocalhostWeek7
 
 This is a simple mobile application developed using React Native. The app demonstrates navigation between screens and fetching data from an API.
+It has local and push notifications. The push notifications are for when a dish is added or deleted.
 
 ![App Screenshot](assets/Product%20Management%20App%20Diagram.png)
 
@@ -50,6 +51,23 @@ To expose your local server to the internet, you can use ngrok.
    ngrok http 3010
    ```
 3. Replace the API endpoint in your React Native app with the ngrok URL provided.
+
+### Configuration
+
+1. Create the .config file in this path: Yr4-Restaurant-App-Frontend\config.js
+2. Add this code:
+
+const config = {
+ngrokUrl: "https://<your-ngrok>.ngrok-free.app",
+};
+
+export default config;
+
+export const expoPushToken = "ExponentPushToken[yourToken]";
+
+### Push Notifications
+
+https://expo.dev/
 
 ## Dependencies
 

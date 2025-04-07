@@ -9,7 +9,7 @@ import {
 import styles from "../styles";
 import config from "../config";
 
-const AllProductsScreen = () => {
+const AllProductsScreen = ({ isDarkMode }) => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -31,35 +31,106 @@ const AllProductsScreen = () => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? "#000" : "#f5f5f5" },
+      ]}
       contentContainerStyle={{ paddingBottom: 20 }}
     >
-      <Text style={styles.headerText}>All Products</Text>
-      <Text style={styles.descriptionText}>
+      <Text
+        style={[styles.headerText, { color: isDarkMode ? "#fff" : "#000" }]}
+      >
+        All Products
+      </Text>
+      <Text
+        style={[
+          styles.descriptionText,
+          { color: isDarkMode ? "#ccc" : "#000" },
+        ]}
+      >
         Here you can view all the products available in the inventory.
       </Text>
       <TouchableOpacity style={buttonStyles.button} onPress={fetchProducts}>
         <Text style={buttonStyles.buttonText}>Get All Products</Text>
       </TouchableOpacity>
       {products.map((product, index) => (
-        <View key={product.ourId + index} style={styles.productContainer}>
-          <Text style={styles.productText}>
+        <View
+          key={product.ourId + index}
+          style={[
+            styles.productContainer,
+            { backgroundColor: isDarkMode ? "#333" : "#fff" },
+          ]}
+        >
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Product ID: " + product.ourId}
           </Text>
-          <Text style={styles.productText}>{"Name: " + product.name}</Text>
-          <Text style={styles.productText}>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
+            {"Name: " + product.name}
+          </Text>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Category: " + product.category}
           </Text>
-          <Text style={styles.productText}>{"Brand: " + product.brand}</Text>
-          <Text style={styles.productText}>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
+            {"Brand: " + product.brand}
+          </Text>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Description: " + product.description}
           </Text>
-          <Text style={styles.productText}>{"Color: " + product.color}</Text>
-          <Text style={styles.productText}>{"Weight: " + product.weight}</Text>
-          <Text style={styles.productText}>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
+            {"Color: " + product.color}
+          </Text>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
+            {"Weight: " + product.weight}
+          </Text>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Availability: " + product.availability}
           </Text>
-          <Text style={styles.productText}>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Product Price: " + product.price}
           </Text>
         </View>

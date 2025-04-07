@@ -10,7 +10,7 @@ import styles from "../styles";
 import config from "../config";
 import * as Notifications from "expo-notifications";
 
-const AddProductScreen = ({ navigation }) => {
+const AddProductScreen = ({ navigation, isDarkMode }) => {
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -130,46 +130,126 @@ const AddProductScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Add New Product</Text>
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? "#000" : "#f5f5f5" },
+      ]}
+    >
+      <Text style={[styles.title, { color: isDarkMode ? "#fff" : "#000" }]}>
+        Add New Product
+      </Text>
+      {error ? (
+        <Text
+          style={[
+            styles.errorText,
+            { color: isDarkMode ? "#ff6b6b" : "#ff0000" },
+          ]}
+        >
+          {error}
+        </Text>
+      ) : null}
       <TextInput
         placeholder="Name"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.name}
         onChangeText={(value) => handleChange("name", value)}
       />
       <TextInput
         placeholder="Price"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.price}
         onChangeText={(value) => handleChange("price", value)}
       />
       <TextInput
         placeholder="Category"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.category}
         onChangeText={(value) => handleChange("category", value)}
       />
       <TextInput
         placeholder="Brand"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.brand}
         onChangeText={(value) => handleChange("brand", value)}
       />
       <TextInput
         placeholder="Description"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.description}
         onChangeText={(value) => handleChange("description", value)}
       />
       <TextInput
         placeholder="Color"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.color}
         onChangeText={(value) => handleChange("color", value)}
       />
       <TextInput
         placeholder="Weight"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.weight}
         onChangeText={(value) => handleChange("weight", value)}
       />
       <TextInput
         placeholder="Availability"
+        placeholderTextColor={isDarkMode ? "#ccc" : "#888"}
+        style={[
+          styles.input,
+          {
+            color: isDarkMode ? "#fff" : "#000",
+            borderColor: isDarkMode ? "#555" : "#ccc",
+          },
+        ]}
         value={product.availability}
         onChangeText={(value) => handleChange("availability", value)}
       />

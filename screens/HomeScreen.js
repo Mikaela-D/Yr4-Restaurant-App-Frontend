@@ -1,13 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, toggleTheme, isDarkMode }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome,</Text>
-      <Text style={styles.descriptionText}>
-        This is a Restaurant App where you can create, read, update and delete
-        your dishes.
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? "#000" : "#f5f5f5" },
+      ]}
+    >
+      <Text
+        style={[styles.welcomeText, { color: isDarkMode ? "#fff" : "#000" }]}
+      >
+        Welcome,
+      </Text>
+      <Text
+        style={[
+          styles.descriptionText,
+          { color: isDarkMode ? "#ccc" : "#000" },
+        ]}
+      >
+        This is a inventory App where you can create, read, update, and delete
+        your kicthen goods.
       </Text>
       <TouchableOpacity
         style={styles.button}
@@ -21,6 +35,17 @@ const HomeScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Manage Products</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("NearbyStores")}
+      >
+        <Text style={styles.buttonText}>Find Nearby Grocery Stores</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={toggleTheme}>
+        <Text style={styles.buttonText}>
+          {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -31,7 +56,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f5f5f5",
   },
   welcomeText: {
     fontSize: 24,

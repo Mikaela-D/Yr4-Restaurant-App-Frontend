@@ -9,7 +9,7 @@ import {
 import styles from "../styles";
 import config from "../config";
 
-const ManageProductsScreen = ({ navigation }) => {
+const ManageProductsScreen = ({ navigation, isDarkMode }) => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -42,20 +42,49 @@ const ManageProductsScreen = ({ navigation }) => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? "#000" : "#f5f5f5" },
+      ]}
       contentContainerStyle={{ paddingBottom: 20 }}
     >
       {products.map((product, index) => (
-        <View key={product.ourId + index} style={styles.productContainer}>
-          <Text style={styles.productText}>
+        <View
+          key={product.ourId + index}
+          style={[
+            styles.productContainer,
+            { backgroundColor: isDarkMode ? "#333" : "#fff" },
+          ]}
+        >
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Product ID: " + product.ourId}
           </Text>
-          <Text style={styles.productText}>{"Name: " + product.name}</Text>
-          <Text style={styles.productText}>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
+            {"Name: " + product.name}
+          </Text>
+          <Text
+            style={[
+              styles.productText,
+              { color: isDarkMode ? "#fff" : "#000" },
+            ]}
+          >
             {"Product Price: " + product.price}
           </Text>
           <TouchableOpacity
-            style={buttonStyles.smallButton}
+            style={[
+              buttonStyles.smallButton,
+              { backgroundColor: isDarkMode ? "#555" : "#89387b" },
+            ]}
             onPress={() => navigation.navigate("ProductDetails", { product })}
           >
             <Text style={buttonStyles.buttonText}>Details</Text>
@@ -63,7 +92,10 @@ const ManageProductsScreen = ({ navigation }) => {
         </View>
       ))}
       <TouchableOpacity
-        style={buttonStyles.button}
+        style={[
+          buttonStyles.button,
+          { backgroundColor: isDarkMode ? "#555" : "#89387b" },
+        ]}
         onPress={() => navigation.navigate("AddProduct")}
       >
         <Text style={buttonStyles.buttonText}>Add New Product</Text>
@@ -74,7 +106,6 @@ const ManageProductsScreen = ({ navigation }) => {
 
 const buttonStyles = StyleSheet.create({
   button: {
-    backgroundColor: "#89387b",
     padding: 15,
     borderRadius: 10,
     marginVertical: 10,
@@ -83,7 +114,6 @@ const buttonStyles = StyleSheet.create({
     alignSelf: "center",
   },
   smallButton: {
-    backgroundColor: "#89387b",
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,

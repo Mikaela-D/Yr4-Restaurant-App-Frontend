@@ -1,103 +1,39 @@
-import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert, StyleSheet } from "react-native";
-import styles from "../styles";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import config from "../config";
-import * as Notifications from "expo-notifications";
 
-const ProductDetailsScreen = ({ route, navigation }) => {
-  const { product } = route.params;
+const ViewProductScreen = ({ navigation }) => {
+  const [productData, setProductData] = useState({
+    name: "",
+    price: "",
+    ourId: "",
+  });
 
-  useEffect(() => {
-    navigation.setOptions({ title: "Product Details" });
-  }, []);
-
-  const sendPushNotification = async (title, body) => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title,
-        body,
-        data: { userName: "Mikaela" }, // Hardcoded userName
-      },
-      trigger: null, // Immediate notification
-    });
-  };
-
-  const handleDelete = async () => {
+  const callAPI = async () => {
     try {
-      const res = await fetch(`${config.ngrokUrl}/deleteSpecificProduct`, {
+      const res = await fetch(`${config.ngrokUrl}/getSpecificProduct`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": "69420",
         },
-        body: JSON.stringify({ ourId: product.ourId }),
+        body: JSON.stringify({ ourId: "90" }),
       });
       const data = await res.json();
-      if (data.success) {
-        console.log("Product deleted successfully.");
-        await sendPushNotification(
-          "Product Deleted",
-          `Product "${product.name}" has been deleted successfully.`
-        );
-        navigation.navigate("ManageProducts");
-      } else {
-        console.log("Failed to delete product:", data.theError);
-        await sendPushNotification(
-          "Error",
-          `Failed to delete product "${product.name}".`
-        );
-      }
+      console.log(data);
+      setProductData(data.theProduct);
     } catch (err) {
       console.log(err);
-      await sendPushNotification(
-        "Error",
-        "An error occurred while deleting the product."
-      );
     }
   };
 
-  const confirmDelete = () => {
-    Alert.alert(
-      "Delete Product",
-      `Are you sure you want to delete product ${product.name}?`,
-      [
-        {
-          text: "No",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: handleDelete,
-        },
-      ]
-    );
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.productText}>{"Product ID: " + product.ourId}</Text>
-      <Text style={styles.productText}>{"Name: " + product.name}</Text>
-      <Text style={styles.productText}>{"Category: " + product.category}</Text>
-      <Text style={styles.productText}>{"Brand: " + product.brand}</Text>
-      <Text style={styles.productText}>
-        {"Description: " + product.description}
-      </Text>
-      <Text style={styles.productText}>{"Color: " + product.color}</Text>
-      <Text style={styles.productText}>{"Weight: " + product.weight}</Text>
-      <Text style={styles.productText}>
-        {"Availability: " + product.availability}
-      </Text>
-      <Text style={styles.productText}>
-        {"Product Price: " + product.price}
-      </Text>
-      <TouchableOpacity
-        style={buttonStyles.button}
-        onPress={() => navigation.navigate("EditProduct", { product })}
-      >
-        <Text style={buttonStyles.buttonText}>Edit</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={buttonStyles.button} onPress={confirmDelete}>
-        <Text style={buttonStyles.buttonText}>Delete</Text>
+    <View>
+      <Text>{"Product ID: " + productData.ourId}</Text>
+      <Text>{"Name: " + productData.name}</Text>
+      <Text>{"Product Price: " + productData.price}</Text>
+      <TouchableOpacity style={buttonStyles.button} onPress={callAPI}>
+        <Text style={buttonStyles.buttonText}>Get product details</Text>
       </TouchableOpacity>
     </View>
   );
@@ -111,7 +47,6 @@ const buttonStyles = StyleSheet.create({
     marginVertical: 10,
     width: "80%",
     alignItems: "center",
-    alignSelf: "center",
   },
   buttonText: {
     color: "#fff",
@@ -120,4 +55,4 @@ const buttonStyles = StyleSheet.create({
   },
 });
 
-export default ProductDetailsScreen;
+export default ViewProductScreen;

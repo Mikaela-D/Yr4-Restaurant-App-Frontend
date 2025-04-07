@@ -1,11 +1,12 @@
-// C:\Users\Mikaela\Mobile App Development\FetchLocalhostWeek7\FetchLocalhostWeek7\App.js
-
-// import * as React from 'react';
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button, Text, View, StyleSheet, TextInput, Alert } from "react-native";
-import { useState, useEffect } from "react";
-import styles from "./styles";
+import { Alert } from "react-native";
+import { useEffect, useState } from "react";
+import * as Notifications from "expo-notifications";
 import HomeScreen from "./screens/HomeScreen";
 import AllProductsScreen from "./screens/AllProductsScreen";
 import ManageProductsScreen from "./screens/ManageProductsScreen";
@@ -14,9 +15,9 @@ import EditProductScreen from "./screens/EditProductScreen";
 import ViewProductScreen from "./screens/ViewProductScreen";
 import FetchScreen from "./screens/FetchScreen";
 import AddProductScreen from "./screens/AddProductScreen";
-import * as Notifications from "expo-notifications";
+import LoginScreen from "./screens/LoginScreen";
+import NearbyStoresScreen from "./screens/NearbyStoresScreen";
 
-// Configure notification handler
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -28,6 +29,12 @@ Notifications.setNotificationHandler({
 const Stack = createNativeStackNavigator();
 
 export default App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
   useEffect(() => {
     async function configurePushNotifications() {
       const { status } = await Notifications.getPermissionsAsync();
@@ -50,8 +57,6 @@ export default App = () => {
         (notification) => {
           console.log("NOTIFICATION RECEIVED");
           console.log(notification);
-          const userName = notification.request.content.data.userName;
-          console.log(userName);
         }
       );
 
@@ -59,8 +64,6 @@ export default App = () => {
         Notifications.addNotificationResponseReceivedListener((response) => {
           console.log("NOTIFICATION RESPONSE RECEIVED");
           console.log(JSON.stringify(response));
-          const userName = response.notification.request.content.data.userName;
-          console.log(userName);
         });
 
       return () => {
@@ -73,13 +76,22 @@ export default App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+    <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Restaurant App" }}
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
         />
+        <Stack.Screen name="Home" options={{ title: "Restaurant App" }}>
+          {(props) => (
+            <HomeScreen
+              {...props}
+              toggleTheme={toggleTheme}
+              isDarkMode={isDarkMode}
+            />
+          )}
+        </Stack.Screen>
         <Stack.Screen name="Fetch" component={FetchScreen} />
         <Stack.Screen name="ViewProduct" component={ViewProductScreen} />
         <Stack.Screen name="ManageProducts" component={ManageProductsScreen} />
@@ -87,6 +99,7 @@ export default App = () => {
         <Stack.Screen name="AddProduct" component={AddProductScreen} />
         <Stack.Screen name="EditProduct" component={EditProductScreen} />
         <Stack.Screen name="All Products" component={AllProductsScreen} />
+        <Stack.Screen name="NearbyStores" component={NearbyStoresScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
